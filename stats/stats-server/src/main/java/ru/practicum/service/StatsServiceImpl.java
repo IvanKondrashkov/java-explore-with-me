@@ -25,25 +25,25 @@ public class StatsServiceImpl implements StatsService {
     private final StatsRepo statsRepo;
 
     @Override
-    public List<ViewStats> getStats(String start, String end, List<String> uris, Boolean unique) {
+    public List<ViewStats> findStats(String start, String end, List<String> uris, Boolean unique) {
         if (unique) {
             Map<String, Integer> uniqueHits = uris.stream().collect(Collectors.toMap(uri -> uri, statsRepo::countDistinctIp, (a, b) -> b));
-            return getStats(start, end, uris, uniqueHits);
+            return findStatsByHits(start, end, uris, uniqueHits);
         } else {
             Map<String, Integer> hits = uris.stream().collect(Collectors.toMap(uri -> uri, statsRepo::countIp, (a, b) -> b));
-            return getStats(start, end, uris, hits);
+            return findStatsByHits(start, end, uris, hits);
         }
     }
 
     @Override
     @Transactional
-    public EndpointHit hit(EndpointHit endpointHit) {
+    public EndpointHit save(EndpointHit endpointHit) {
         final Stats stats = StatsMapper.toStats(endpointHit);
         final Stats statsWrap = statsRepo.save(stats);
         return StatsMapper.toEndpointHit(statsWrap);
     }
 
-    private List<ViewStats> getStats(String start, String end, List<String> uris, Map<String, Integer> hits) {
+    private List<ViewStats> findStatsByHits(String start, String end, List<String> uris, Map<String, Integer> hits) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return statsRepo.findAllByUriInAndTimestampBetween(uris, LocalDateTime.parse(start, formatter), LocalDateTime.parse(end, formatter))
                 .stream()

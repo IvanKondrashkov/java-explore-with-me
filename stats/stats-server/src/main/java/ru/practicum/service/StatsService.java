@@ -6,19 +6,17 @@ import ru.practicum.dto.EndpointHit;
 
 public interface StatsService {
     /**
-     *
-     * @param start
-     * @param end
-     * @param uris
-     * @param unique
-     * @return
+     * Find all stats by between interval (start, end) and unique ip request to uri.
+     * @param uris List uri.
+     * @param unique Unique ip request to uri, parameter can take true or false. Default value = false.
+     * @return List view stats.
      */
-    List<ViewStats> getStats(String start, String end, List<String> uris, Boolean unique);
+    List<ViewStats> findStats(String start, String end, List<String> uris, Boolean unique);
 
     /**
-     *
-     * @param endpointHit
-     * @return
+     * Create stats.
+     * @param endpointHit Entity dto.
+     * @return EndpointHit.
      */
-    EndpointHit hit(EndpointHit endpointHit);
+    EndpointHit save(EndpointHit endpointHit);
 }

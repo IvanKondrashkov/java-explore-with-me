@@ -22,7 +22,7 @@ public class StatsClient {
             .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
             .build();
 
-    public Mono<EndpointHit> hit(EndpointHit endpointHit) {
+    public Mono<EndpointHit> save(EndpointHit endpointHit) {
         return client.post()
                 .uri("/hit")
                 .body(Mono.just(endpointHit), EndpointHit.class)
@@ -37,7 +37,7 @@ public class StatsClient {
                 });
     }
 
-    public Flux<ViewStats> getStats(String start, String end, List<String> uris, Boolean unique) {
+    public Flux<ViewStats> findStats(String start, String end, List<String> uris, Boolean unique) {
         return client.get()
                 .uri("/stats?start={}&end={}&uris={}&unique={}", start, end, uris, unique)
                 .exchangeToFlux(response -> {
