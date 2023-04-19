@@ -1,7 +1,7 @@
 package ru.practicum.service;
 
-import java.util.List;
 import java.util.Map;
+import java.util.List;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 import java.time.LocalDateTime;
@@ -26,13 +26,23 @@ public class StatsServiceImpl implements StatsService {
 
     @Override
     public List<ViewStats> findStats(String start, String end, List<String> uris, Boolean unique) {
-        if (unique) {
-            Map<String, Integer> uniqueHits = uris.stream().collect(Collectors.toMap(uri -> uri, statsRepo::countDistinctIp, (a, b) -> b));
-            return findStatsByHits(start, end, uris, uniqueHits);
-        } else {
-            Map<String, Integer> hits = uris.stream().collect(Collectors.toMap(uri -> uri, statsRepo::countIp, (a, b) -> b));
-            return findStatsByHits(start, end, uris, hits);
+        if (uris != null) {
+            if (unique) {
+                Map<String, Integer> uniqueHits = uris.stream()
+                        .collect(Collectors.toMap(uri -> uri, statsRepo::countDistinctIp, (a, b) -> b));
+                return findStatsByHits(start, end, uris, uniqueHits);
+            } else {
+                Map<String, Integer> hits = uris.stream()
+                        .collect(Collectors.toMap(uri -> uri, statsRepo::countIp, (a, b) -> b));
+                return findStatsByHits(start, end, uris, hits);
+            }
         }
+        final List<String> allUris = statsRepo.findAll().stream()
+                .map(Stats::getUri)
+                .collect(Collectors.toList());
+        final Map<String, Integer> allHits = allUris.stream()
+                .collect(Collectors.toMap(uri -> uri, statsRepo::countIp, (a, b) -> b));
+        return findStatsByHits(start, end, allUris, allHits);
     }
 
     @Override

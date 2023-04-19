@@ -6,7 +6,7 @@ import lombok.*;
 @Getter
 @ToString
 @Builder
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor
 @NoArgsConstructor
 public class ViewStats {
     private String app;

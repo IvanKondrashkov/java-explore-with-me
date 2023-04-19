@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Getter
 @ToString
 @Builder
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor
 @NoArgsConstructor
 public class EndpointHit {
     private Long id;

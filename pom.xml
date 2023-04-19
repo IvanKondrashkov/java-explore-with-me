@@ -29,6 +29,7 @@
 		<spring.boot.version>2.7.5</spring.boot.version>
 		<commons-validator.version>1.4.1</commons-validator.version>
 		<jackson-annotations.version>2.13.3</jackson-annotations.version>
+		<com.querydsl.version>5.0.0</com.querydsl.version>
 	</properties>
 
 	<dependencyManagement>
@@ -97,6 +98,16 @@
 				<artifactId>gson</artifactId>
 				<version>${gson.version}</version>
 				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.querydsl</groupId>
+				<artifactId>querydsl-apt</artifactId>
+				<version>${com.querydsl.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.querydsl</groupId>
+				<artifactId>querydsl-jpa</artifactId>
+				<version>${com.querydsl.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
