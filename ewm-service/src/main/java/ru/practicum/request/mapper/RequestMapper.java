@@ -38,8 +38,12 @@ public class RequestMapper {
     }
 
     public static EventRequestStatusUpdateResult toEventRequestStatusUpdateResult(List<Request> requests) {
-        final List<Request> confirmed = requests.stream().filter(it -> it.getStatus().equals(Status.CONFIRMED)).collect(Collectors.toList());
-        final List<Request> rejected = requests.stream().filter(it -> it.getStatus().equals(Status.REJECTED)).collect(Collectors.toList());
+        final List<Request> confirmed = requests.stream()
+                .filter(it -> it.getStatus() == Status.CONFIRMED)
+                .collect(Collectors.toList());
+        final List<Request> rejected = requests.stream()
+                .filter(it -> it.getStatus() == Status.REJECTED)
+                .collect(Collectors.toList());
         return new EventRequestStatusUpdateResult(
                 confirmed.stream()
                         .map(RequestMapper::toParticipationRequestDto)

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
 import ru.practicum.user.model.User;
 import ru.practicum.user.repo.UserRepo;
 import ru.practicum.category.model.Category;
@@ -82,7 +83,7 @@ public class EventServicePrivateApiImpl implements EventServicePrivateApi {
         final Location location = LocationMapper.toLocation(newEventDto.getLocation());
         final Location locationWrap = locationRepo.save(location);
         final Event event = EventMapper.toEvent(newEventDto, userWrap, categoryWrap, locationWrap);
-        if (event.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
+        if (event.getEventDate() != null && event.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
             throw new ConflictException(String.format("Event date is not valid! eventDate=%s", event.getEventDate()));
         }
         final Event eventWrap = eventRepo.save(event);
@@ -99,13 +100,13 @@ public class EventServicePrivateApiImpl implements EventServicePrivateApi {
                 () -> new EntityNotFoundException(String.format("Event with id=%d was not found", id))
         );
         Optional.ofNullable(eventUserRequest.getTitle()).ifPresent(it -> {
-            if (!eventUserRequest.getTitle().isBlank()) eventWrap.setTitle(eventUserRequest.getTitle());
+            if (!StringUtils.isBlank(eventUserRequest.getTitle())) eventWrap.setTitle(eventUserRequest.getTitle());
         });
         Optional.ofNullable(eventUserRequest.getAnnotation()).ifPresent(it -> {
-            if (!eventUserRequest.getAnnotation().isBlank()) eventWrap.setAnnotation(eventUserRequest.getAnnotation());
+            if (!StringUtils.isBlank(eventUserRequest.getAnnotation())) eventWrap.setAnnotation(eventUserRequest.getAnnotation());
         });
         Optional.ofNullable(eventUserRequest.getDescription()).ifPresent(it -> {
-            if (!eventUserRequest.getDescription().isBlank()) eventWrap.setDescription(eventUserRequest.getDescription());
+            if (!StringUtils.isBlank(eventUserRequest.getDescription())) eventWrap.setDescription(eventUserRequest.getDescription());
         });
         Optional.ofNullable(eventUserRequest.getPaid()).ifPresent(eventWrap::setPaid);
         Optional.ofNullable(eventUserRequest.getParticipantLimit()).ifPresent(eventWrap::setParticipantLimit);

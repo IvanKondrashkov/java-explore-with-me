@@ -4,6 +4,7 @@ import java.util.*;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 import com.querydsl.core.BooleanBuilder;
+import org.apache.commons.lang3.StringUtils;
 import ru.practicum.category.model.Category;
 import ru.practicum.category.repo.CategoryRepo;
 import ru.practicum.event.model.*;
@@ -72,13 +73,13 @@ public class EventServiceAdminApiImpl implements EventServiceAdminApi {
                 () -> new EntityNotFoundException(String.format("Event with id=%d was not found", id))
         );
         Optional.ofNullable(eventAdminRequest.getTitle()).ifPresent(it -> {
-            if (!eventAdminRequest.getTitle().isBlank()) eventWrap.setTitle(eventAdminRequest.getTitle());
+            if (!StringUtils.isBlank(eventAdminRequest.getTitle())) eventWrap.setTitle(eventAdminRequest.getTitle());
         });
         Optional.ofNullable(eventAdminRequest.getAnnotation()).ifPresent(it -> {
-            if (!eventAdminRequest.getAnnotation().isBlank()) eventWrap.setAnnotation(eventAdminRequest.getAnnotation());
+            if (!StringUtils.isBlank(eventAdminRequest.getAnnotation())) eventWrap.setAnnotation(eventAdminRequest.getAnnotation());
         });
         Optional.ofNullable(eventAdminRequest.getDescription()).ifPresent(it -> {
-            if (!eventAdminRequest.getDescription().isBlank()) eventWrap.setDescription(eventAdminRequest.getDescription());
+            if (!StringUtils.isBlank(eventAdminRequest.getDescription())) eventWrap.setDescription(eventAdminRequest.getDescription());
         });
         Optional.ofNullable(eventAdminRequest.getPaid()).ifPresent(eventWrap::setPaid);
         Optional.ofNullable(eventAdminRequest.getParticipantLimit()).ifPresent(eventWrap::setParticipantLimit);

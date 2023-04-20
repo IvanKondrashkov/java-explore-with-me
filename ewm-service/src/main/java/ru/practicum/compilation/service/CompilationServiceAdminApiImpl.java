@@ -15,6 +15,7 @@ import ru.practicum.compilation.dto.NewCompilationDto;
 import ru.practicum.compilation.dto.UpdateCompilationRequest;
 import ru.practicum.compilation.repo.CompilationRepo;
 import ru.practicum.compilation.mapper.CompilationMapper;
+import org.apache.commons.lang3.StringUtils;
 import ru.practicum.views.service.ViewsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -53,12 +54,10 @@ public class CompilationServiceAdminApiImpl implements CompilationServiceAdminAp
         );
         final Set<Event> events = eventRepo.findAllByIdIn(compilationRequest.getEvents());
         Optional.ofNullable(compilationRequest.getTitle()).ifPresent(it -> {
-            if (!compilationRequest.getTitle().isBlank()) compilationWrap.setTitle(compilationRequest.getTitle());
+            if (!StringUtils.isBlank(compilationRequest.getTitle())) compilationWrap.setTitle(compilationRequest.getTitle());
         });
         Optional.ofNullable(compilationRequest.getPinned()).ifPresent(compilationWrap::setPinned);
-        Optional.ofNullable(compilationRequest.getEvents()).ifPresent(it -> {
-            compilationWrap.setEvents(events);
-        });
+        Optional.ofNullable(compilationRequest.getEvents()).ifPresent(it -> compilationWrap.setEvents(events));
         final List<Long> ids = events.stream()
                 .map(Event::getId)
                 .collect(Collectors.toList());

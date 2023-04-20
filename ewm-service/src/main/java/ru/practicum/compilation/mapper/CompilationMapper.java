@@ -11,6 +11,7 @@ import ru.practicum.event.mapper.EventMapper;
 import ru.practicum.compilation.model.Compilation;
 import ru.practicum.compilation.dto.CompilationDto;
 import ru.practicum.compilation.dto.NewCompilationDto;
+import org.apache.commons.collections.CollectionUtils;
 
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class CompilationMapper {
@@ -19,7 +20,7 @@ public class CompilationMapper {
                 null,
                 newCompilationDto.getTitle(),
                 newCompilationDto.getPinned(),
-                events.isEmpty() ? Collections.emptySet() : events
+                CollectionUtils.isEmpty(events) ? Collections.emptySet() : events
         );
     }
 

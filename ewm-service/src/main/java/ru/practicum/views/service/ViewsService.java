@@ -5,16 +5,16 @@ import java.util.List;
 
 public interface ViewsService {
     /**
-     *
-     * @param id
-     * @return
+     * Find view by event id.
+     * @param id Event id.
+     * @return Count hits.
      */
     Integer getViews(Long id);
 
     /**
-     *
-     * @param ids
-     * @return
+     * Find all views by events ids.
+     * @param ids List Event ids.
+     * @return Map, key = event id, value = count hits.
      */
     Map<Long, Integer> getViews(List<Long> ids);
 }
