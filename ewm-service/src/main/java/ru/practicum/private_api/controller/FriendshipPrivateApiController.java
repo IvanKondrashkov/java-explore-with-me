@@ -16,25 +16,25 @@ import ru.practicum.friendship.service.FriendshipServicePrivateApi;
 @Slf4j
 @Validated
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/users/{userId}/friends")
 @RequiredArgsConstructor
 public class FriendshipPrivateApiController {
     private final FriendshipServicePrivateApi friendshipService;
 
-    @GetMapping("/{userId}/friends")
+    @GetMapping
     public List<FriendshipEventDto> findAll(@Positive @PathVariable Long userId) {
         log.info("Send get request /users/{}/friends", userId);
         return friendshipService.findAll(userId);
     }
 
-    @PostMapping("/{userId}/friends/{friendId}")
+    @PostMapping("/{friendId}")
     @ResponseStatus(HttpStatus.CREATED)
     public FriendshipDto save(@Positive @PathVariable Long userId, @Positive @PathVariable Long friendId) {
         log.info("Send post request /users/{}/friends/{}", userId, friendId);
         return friendshipService.save(userId, friendId);
     }
 
-    @PatchMapping("/{userId}/friends/{id}")
+    @PatchMapping("/{id}")
     public FriendshipDto update(@Valid @RequestBody UpdateFriendshipRequest updateFriendshipRequest,
                                 @Positive @PathVariable Long userId,
                                 @Positive @PathVariable Long id) {
@@ -42,7 +42,7 @@ public class FriendshipPrivateApiController {
         return friendshipService.update(updateFriendshipRequest, userId, id);
     }
 
-    @DeleteMapping("/{userId}/friends/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@Positive @PathVariable Long userId, @Positive @PathVariable Long id) {
         log.info("Send delete request /users/{}/friends/{}", userId, id);

@@ -10,5 +10,5 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class UpdateFriendshipRequest {
     @NotNull
-    private Boolean status;
+    private Boolean isFriend;
 }

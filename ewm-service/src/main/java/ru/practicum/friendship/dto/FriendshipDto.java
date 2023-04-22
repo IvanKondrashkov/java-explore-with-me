@@ -12,7 +12,7 @@ import ru.practicum.user.dto.UserShortDto;
 @NoArgsConstructor
 public class FriendshipDto {
     private Long id;
-    private Boolean status;
+    private Boolean isFriend;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime created;
     private UserShortDto initiator;

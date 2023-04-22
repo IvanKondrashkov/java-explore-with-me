@@ -2,9 +2,8 @@ package ru.practicum.friendship.model;
 
 import lombok.*;
 import javax.persistence.*;
-import ru.practicum.user.model.User;
-
 import java.time.LocalDateTime;
+import ru.practicum.user.model.User;
 
 @Setter
 @Getter
@@ -17,8 +16,8 @@ public class Friendship {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
-    private Boolean status;
+    @Column(name = "is_friend", nullable = false)
+    private Boolean isFriend;
     @Column(nullable = false)
     private LocalDateTime created;
     @OneToOne(fetch = FetchType.LAZY)

@@ -36,7 +36,7 @@ public class FriendshipServicePrivateApiImpl implements FriendshipServicePrivate
         final User userWrap = userRepo.findById(userId).orElseThrow(
                 () -> new EntityNotFoundException(String.format("User with id=%d was not found", userId))
         );
-        final Set<Long> friendshipIds = friendshipRepo.findAllByInitiatorIdAndStatusTrue(userId).stream()
+        final Set<Long> friendshipIds = friendshipRepo.findAllByInitiatorIdAndIsFriendTrue(userId).stream()
                 .map(it -> it.getFriend().getId())
                 .collect(Collectors.toSet());
         final Map<User, List<EventFullDto>> map = new HashMap<>();
@@ -84,7 +84,7 @@ public class FriendshipServicePrivateApiImpl implements FriendshipServicePrivate
         if (!friendshipWrap.getFriend().getId().equals(userId)) {
             throw new ConflictException(String.format("User with id=%d of the friendship request, cannot accept or reject", userId));
         }
-        Optional.ofNullable(updateFriendshipRequest.getStatus()).ifPresent(friendshipWrap::setStatus);
+        Optional.ofNullable(updateFriendshipRequest.getIsFriend()).ifPresent(friendshipWrap::setIsFriend);
         return FriendshipMapper.toFriendshipDto(friendshipWrap);
     }
 
