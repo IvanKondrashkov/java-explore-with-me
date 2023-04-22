@@ -1,7 +1,7 @@
 package ru.practicum.compilation.dto;
 
 import lombok.*;
-import java.util.Set;
+import java.util.List;
 
 @Setter
 @Getter
@@ -11,5 +11,5 @@ import java.util.Set;
 public class UpdateCompilationRequest {
     private String title;
     private Boolean pinned;
-    private Set<Long> events;
+    private List<Long> events;
 }

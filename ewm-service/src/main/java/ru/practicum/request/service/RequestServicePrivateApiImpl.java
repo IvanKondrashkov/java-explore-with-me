@@ -93,7 +93,7 @@ public class RequestServicePrivateApiImpl implements RequestServicePrivateApi {
 
     @Override
     @Transactional
-    public EventRequestStatusUpdateResult updateStatus(EventRequestStatusUpdateRequest statusUpdateRequest, Long userId, Long eventId) {
+    public EventRequestStatusUpdateResult update(EventRequestStatusUpdateRequest statusUpdateRequest, Long userId, Long eventId) {
         final User userWrap = userRepo.findById(userId).orElseThrow(
                 () -> new EntityNotFoundException(String.format("User with id=%d was not found", userId))
         );

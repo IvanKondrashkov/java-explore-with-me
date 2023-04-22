@@ -48,10 +48,10 @@ public class RequestPrivateApiController {
     }
 
     @PatchMapping("/{userId}/events/{eventId}/requests")
-    public EventRequestStatusUpdateResult updateStatus(@Valid @RequestBody EventRequestStatusUpdateRequest statusUpdateRequest,
+    public EventRequestStatusUpdateResult update(@Valid @RequestBody EventRequestStatusUpdateRequest statusUpdateRequest,
                                                        @Positive @PathVariable Long userId,
                                                        @Positive @PathVariable Long eventId) {
         log.info("Send patch request /users/{}/events/{}/requests", userId, eventId);
-        return requestService.updateStatus(statusUpdateRequest, userId, eventId);
+        return requestService.update(statusUpdateRequest, userId, eventId);
     }
 }

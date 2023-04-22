@@ -44,5 +44,5 @@ public interface RequestServicePrivateApi {
      * @param eventId Event id.
      * @return EventRequestStatusUpdateResult.
      */
-    EventRequestStatusUpdateResult updateStatus(EventRequestStatusUpdateRequest statusUpdateRequest, Long userId, Long eventId);
+    EventRequestStatusUpdateResult update(EventRequestStatusUpdateRequest statusUpdateRequest, Long userId, Long eventId);
 }
