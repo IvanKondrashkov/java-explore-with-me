@@ -5,5 +5,5 @@ import ru.practicum.friendship.model.Friendship;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FriendshipRepo extends JpaRepository<Friendship, Long> {
-    List<Friendship> findAllByInitiatorIdAndStatusTrue(Long userId);
+    List<Friendship> findAllByInitiatorIdAndIsFriendTrue(Long userId);
 }

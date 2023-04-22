@@ -26,7 +26,7 @@ public class FriendshipMapper {
     public static FriendshipDto toFriendshipDto(Friendship friendship) {
         return new FriendshipDto(
                 friendship.getId(),
-                friendship.getStatus(),
+                friendship.getIsFriend(),
                 LocalDateTime.now(),
                 UserMapper.toUserShortDto(friendship.getInitiator()),
                 UserMapper.toUserShortDto(friendship.getFriend())

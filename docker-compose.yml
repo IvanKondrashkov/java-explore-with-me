@@ -14,6 +14,11 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/stats
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
+    healthcheck:
+      test: curl -s http://localhost:9090/actuator
+      interval: 30s
+      timeout: 2s
+      retries: 10
 
   stats-db:
     image: postgres:14-alpine
@@ -26,6 +31,11 @@ services:
       - POSTGRES_DB=stats
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
+    healthcheck:
+      test: ["CMD", "pg_isready -U root -d stats"]
+      interval: 30s
+      timeout: 2s
+      retries: 10
 
   ewm-service:
     build:
@@ -55,3 +65,8 @@ services:
       - POSTGRES_DB=ewm
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
+    healthcheck:
+      test: [ "CMD", "pg_isready -U root -d ewm" ]
+      interval: 30s
+      timeout: 2s
+      retries: 10

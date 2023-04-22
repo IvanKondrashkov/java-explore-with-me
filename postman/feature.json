@@ -76,16 +76,16 @@
 									"const target = pm.response.json();",
 									"pm.collectionVariables.set('frid', target.id);",
 									"",
-									"pm.test(\"Событие должно содержать поля: id, status, created, initiator, friend\", function () {",
+									"pm.test(\"Событие должно содержать поля: id, isFriend, created, initiator, friend\", function () {",
 									"pm.expect(target).to.have.property('id');",
-									"pm.expect(target).to.have.property('status');",
+									"pm.expect(target).to.have.property('isFriend');",
 									"pm.expect(target).to.have.property('created');",
 									"pm.expect(target).to.have.property('initiator');",
 									"pm.expect(target).to.have.property('friend');",
 									"});",
 									"",
 									"pm.test(\"При создании у запроса на добавление в друзья должен быть статус false\", function () {",
-									"    pm.expect(target.status).equal(false);",
+									"    pm.expect(target.isFriend).equal(false);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -159,16 +159,16 @@
 									"const target = pm.response.json();",
 									"pm.collectionVariables.set('frid', target.id);",
 									"",
-									"pm.test(\"Событие должно содержать поля: id, status, created, initiator, friend\", function () {",
+									"pm.test(\"Событие должно содержать поля: id, isFriend, created, initiator, friend\", function () {",
 									"pm.expect(target).to.have.property('id');",
-									"pm.expect(target).to.have.property('status');",
+									"pm.expect(target).to.have.property('isFriend');",
 									"pm.expect(target).to.have.property('created');",
 									"pm.expect(target).to.have.property('initiator');",
 									"pm.expect(target).to.have.property('friend');",
 									"});",
 									"",
 									"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {",
-									"    pm.expect(source.status).equal(target.status, 'Статус заявки в друзья должен соответствовать искомому статусу заявки в друзья');",
+									"    pm.expect(source.isFriend).equal(target.isFriend, 'Статус заявки в друзья должен соответствовать искомому статусу заявки в друзья');",
 									"});"
 								],
 								"type": "text/javascript"
@@ -191,7 +191,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"status\": true\n}"
+							"raw": "{\n    \"isFriend\": true\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/users/:userId/friends/:id",
@@ -381,7 +381,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"status\": true\n}"
+							"raw": "{\n    \"isFriend\": true\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/users/:userId/friends/:id",
